@@ -1,0 +1,15 @@
+global:
+  scrape_interval: 5s
+
+scrape_configs:
+  - job_name: "prometheus"
+    static_configs:
+      - targets: ["localhost:9090"]
+
+  - job_name: 'fastapi'
+    # The 'api' service can be reached via its service name in Docker Compose
+    static_configs:
+      - targets: ['api:8000']
+    # Your app/main.py exposes metrics at the root
+    metrics_path: /metrics
+
